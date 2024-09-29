@@ -794,6 +794,10 @@ void main () {
 
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
 
+
+
+  vColor.rgb = clamp(vColor.rgb, 0.0, 1.0);  
+
   vPosition = position;
 
   vec2 vCenter = vec2(pos2d) / pos2d.w;
