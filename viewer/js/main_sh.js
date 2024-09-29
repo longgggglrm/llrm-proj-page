@@ -501,44 +501,44 @@ function createWorker(self) {
         console.log("something is wrong!")
       }
 
-      if (types["f_rest_0"]) {
-        // for (let i = 0; i < ((sh_order + 1)**2-1); i++) {
-        //   sh_feature[4*i] = attrs[`f_rest_${3*i}`];
-        //   sh_feature[4*i+1] = attrs[`f_rest_${3*i+1}`];
-        //   sh_feature[4*i+2] = attrs[`f_rest_${3*i+2}`];
-        //   sh_feature[4*i+3] = 0;
-        // }
-        // const shData = Array.from({ length: 45 }, (_, i) =>
-        //   extensionData.getAttributeAccessor(
-        //     `f_rest_${Math.floor(i / 3) + (i % 3) * 15}`
-        //   )
-        // );
-        for (let i = 0; i < ((sh_order + 1)**2-1); i++) {
-          const j1 = i * 3;
-          const j2 = i * 3 + 1;
-          const j3 = i * 3 + 2;
-
-          const re_j1 = Math.floor(j1 / 3) + (j1 % 3) * 15;
-          const re_j2 = Math.floor(j2 / 3) + (j2 % 3) * 15;
-          const re_j3 = Math.floor(j3 / 3) + (j3 % 3) * 15;
-          sh_feature[4*i] = attrs[`f_rest_${re_j1}`];
-          sh_feature[4*i+1] = attrs[`f_rest_${re_j2}`];
-          sh_feature[4*i+2] = attrs[`f_rest_${re_j3}`];
-          sh_feature[4*i+3] = 0;
-        }
-        if (j == 0) {
-          console.log(attrs.f_rest_3);
-          console.log(attrs.f_rest_4);
-          console.log(attrs.f_rest_5);
-          console.log("sh_feature: ", sh_feature);
-        }
-      }
-
       // if (types["f_rest_0"]) {
-      //   for (let i = 0; i < ((sh_order + 1)**2)*3-3; i++) {
-      //     sh_feature[i+3] = attrs[`f_rest_${i}`];
+      //   // for (let i = 0; i < ((sh_order + 1)**2-1); i++) {
+      //   //   sh_feature[4*i] = attrs[`f_rest_${3*i}`];
+      //   //   sh_feature[4*i+1] = attrs[`f_rest_${3*i+1}`];
+      //   //   sh_feature[4*i+2] = attrs[`f_rest_${3*i+2}`];
+      //   //   sh_feature[4*i+3] = 0;
+      //   // }
+      //   // const shData = Array.from({ length: 45 }, (_, i) =>
+      //   //   extensionData.getAttributeAccessor(
+      //   //     `f_rest_${Math.floor(i / 3) + (i % 3) * 15}`
+      //   //   )
+      //   // );
+      //   for (let i = 0; i < ((sh_order + 1)**2-1); i++) {
+      //     const j1 = i * 3;
+      //     const j2 = i * 3 + 1;
+      //     const j3 = i * 3 + 2;
+
+      //     const re_j1 = Math.floor(j1 / 3) + (j1 % 3) * 15;
+      //     const re_j2 = Math.floor(j2 / 3) + (j2 % 3) * 15;
+      //     const re_j3 = Math.floor(j3 / 3) + (j3 % 3) * 15;
+      //     sh_feature[4*i] = attrs[`f_rest_${re_j1}`];
+      //     sh_feature[4*i+1] = attrs[`f_rest_${re_j2}`];
+      //     sh_feature[4*i+2] = attrs[`f_rest_${re_j3}`];
+      //     sh_feature[4*i+3] = 0;
       //   }
-      // }     
+      //   if (j == 0) {
+      //     console.log(attrs.f_rest_3);
+      //     console.log(attrs.f_rest_4);
+      //     console.log(attrs.f_rest_5);
+      //     console.log("sh_feature: ", sh_feature);
+      //   }
+      // }
+
+      if (types["f_rest_0"]) {
+        for (let i = 0; i < ((sh_order + 1)**2)*3-3; i++) {
+          sh_feature[i+3] = attrs[`f_rest_${i}`];
+        }
+      }     
 
       if (types["opacity"]) {
         rgba[3] = (1 / (1 + Math.exp(-attrs.opacity))) * 255;
