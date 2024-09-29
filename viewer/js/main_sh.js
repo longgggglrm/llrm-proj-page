@@ -560,9 +560,15 @@ function processPlyBuffer(inputBuffer) {
         const j3 = i * 3 + 2;
 
 
+        // const re_j1 = Math.floor(j1 / 3) + (j1 % 3) * 24;
+        // const re_j2 = Math.floor(j2 / 3) + (j2 % 3) * 24;
+        // const re_j3 = Math.floor(j3 / 3) + (j3 % 3) * 24;
+
+
         const re_j1 = Math.floor(j1 / 3) + (j1 % 3) * 15;
         const re_j2 = Math.floor(j2 / 3) + (j2 % 3) * 15;
         const re_j3 = Math.floor(j3 / 3) + (j3 % 3) * 15;
+
 
         sh_feature[4*i] = attrs[`f_rest_${re_j1}`];
         sh_feature[4*i+1] = attrs[`f_rest_${re_j2}`];
