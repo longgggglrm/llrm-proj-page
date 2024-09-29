@@ -132,7 +132,7 @@
     <div class="hero-body">
       <video poster="" id="tree" autoplay controls muted loop height="100%">
         <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
+        <source src="https://huggingface.co/longgggglrm/llrm_stuff/resolve/main/videos/dl3dv_33.mp4"
         type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
@@ -151,7 +151,11 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            We propose LLRM, a generalizable 3D Gaussian reconstruction model that is capable of reconstructing a large scene from 32 source images at 960x540 resolution within only 2 seconds on a single A100 80G GPU.
+            Our architecture features a mixture of the novel Mamba2 blocks and the transformer blocks, facilitated by simple token merging and Gaussian pruning steps, showcasing a perfect balance between quality and efficiency; 
+            we patchify and tokenize the source images, feed the concatenated tokens into the sequence of Mamba2 / transformer blocks, and unpatchify and predict per-pixel Gaussian parameters at the end.
+            Unlike past generalizable 3D Gaussian models, which are only able to take 1~4 input images and thus only able to reconstruct one corner of the scene, LLRM reconstructs the entire scene in one shot through a feed-forward step.
+            We show comparable results to 3D-GS, whose results take >10 minutes to optimize, on large scene datasets including DL3DV-140 and Tanks and Temples.
           </p>
         </div>
       </div>
