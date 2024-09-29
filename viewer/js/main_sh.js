@@ -178,7 +178,8 @@ function createWorker(self) {
   // IJKL - quaternion/rot (uint8)
   const sh_order = 3;
   // const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
-  const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2 - 1) * 3 * 4;
+  //const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2 - 1) * 3 * 4;
+  const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2) * 3 * 4;
   let lastProj = [];
   let depthIndex = new Uint32Array();
   let lastVertexCount = 0;
@@ -247,10 +248,10 @@ function createWorker(self) {
       texdata_f[float_per_row * i + 2] = f_buffer[float_per_row * i + 2];
 
       // r, g, b, a
-      texdata_c[4 * (float_per_row * i + 7) + 0] = u_buffer[byte_per_row * i + 24 + 0];
-      texdata_c[4 * (float_per_row * i + 7) + 1] = u_buffer[byte_per_row * i + 24 + 1];
-      texdata_c[4 * (float_per_row * i + 7) + 2] = u_buffer[byte_per_row * i + 24 + 2];
-      texdata_c[4 * (float_per_row * i + 7) + 3] = u_buffer[byte_per_row * i + 24 + 3];
+      texdata_c[4 * (float_per_row * i + 6) + 0] = u_buffer[byte_per_row * i + 24 + 0];
+      texdata_c[4 * (float_per_row * i + 6) + 1] = u_buffer[byte_per_row * i + 24 + 1];
+      texdata_c[4 * (float_per_row * i + 6) + 2] = u_buffer[byte_per_row * i + 24 + 2];
+      texdata_c[4 * (float_per_row * i + 6) + 3] = u_buffer[byte_per_row * i + 24 + 3];
 
       // quaternions
       let scale = [
@@ -760,7 +761,8 @@ async function main() {
 
   // const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
   const sh_order = 3;
-  const rowLength = 3 * 4 + 3 + 3 * 4 + ((sh_order+1)**2 - 1) * 3 * 4 + 8 * 4 + 2; // for our format
+  //const rowLength = 3 * 4 + 3 + 3 * 4 + ((sh_order+1)**2 - 1) * 3 * 4 + 8 * 4 + 2; // for our format
+  const rowLength = 3 * 4 + 3 + 3 * 4 + ((sh_order+1)**2) * 3 * 4 + 8 * 4 + 2; // for our format
   const reader = req.body.getReader();
   let splatData = new Uint8Array(req.headers.get("content-length"));
 
