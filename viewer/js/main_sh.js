@@ -295,7 +295,7 @@ function createWorker(self) {
 
 
       for (var j = 0; j < ((sh_order + 1)**2 ) * 3; j++) {
-        texdata_f[float_per_row * i + 8 + j] = f_buffer[float_per_row * i + 8 + j];
+        texdata_f[float_per_row * i + 8 + j] = 0 //f_buffer[float_per_row * i + 8 + j];
       }
     }
 
