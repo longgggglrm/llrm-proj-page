@@ -178,8 +178,7 @@ function createWorker(self) {
   // IJKL - quaternion/rot (uint8)
   const sh_order = 3;
   // const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
-  //const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2 - 1) * 3 * 4;
-  const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2) * 3 * 4;
+  const rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order + 1)**2 ) * 3 * 4;
   let lastProj = [];
   let depthIndex = new Uint32Array();
   let lastVertexCount = 0;
@@ -226,10 +225,10 @@ function createWorker(self) {
     const u_buffer = new Uint8Array(buffer);
 
     var texwidth = 1024 * 2; // Set to your desired width
-    var texheight = Math.ceil((2 * vertexCount) / texwidth); // Set to your desired height
+    var texheight = Math.ceil((vertexCount) / texwidth); // Set to your desired height
 
     // var texdata = new Uint32Array(texwidth * texheight * 4); // 4 components per pixel (RGBA)
-    var texdata = new Uint32Array(texwidth * texheight * rowLength / 4 / 2); // 4 components per pixel (RGBA)
+    var texdata = new Uint32Array(texwidth * texheight * rowLength / 4); // 4 components per pixel (RGBA)
 
     var texdata_c = new Uint8Array(texdata.buffer);
     var texdata_f = new Float32Array(texdata.buffer);
@@ -248,10 +247,10 @@ function createWorker(self) {
       texdata_f[float_per_row * i + 2] = f_buffer[float_per_row * i + 2];
 
       // r, g, b, a
-      texdata_c[4 * (float_per_row * i + 6) + 0] = u_buffer[byte_per_row * i + 24 + 0];
-      texdata_c[4 * (float_per_row * i + 6) + 1] = u_buffer[byte_per_row * i + 24 + 1];
-      texdata_c[4 * (float_per_row * i + 6) + 2] = u_buffer[byte_per_row * i + 24 + 2];
-      texdata_c[4 * (float_per_row * i + 6) + 3] = u_buffer[byte_per_row * i + 24 + 3];
+      texdata_c[4 * (float_per_row * i + 7) + 0] = u_buffer[byte_per_row * i + 24 + 0];
+      texdata_c[4 * (float_per_row * i + 7) + 1] = u_buffer[byte_per_row * i + 24 + 1];
+      texdata_c[4 * (float_per_row * i + 7) + 2] = u_buffer[byte_per_row * i + 24 + 2];
+      texdata_c[4 * (float_per_row * i + 7) + 3] = u_buffer[byte_per_row * i + 24 + 3];
 
       // quaternions
       let scale = [
@@ -295,7 +294,7 @@ function createWorker(self) {
       texdata[float_per_row * i + 6] = packHalf2x16(4 * sigma[4], 4 * sigma[5]);
 
 
-      for (var j = 0; j < ((sh_order + 1)**2) * 3; j++) {
+      for (var j = 0; j < ((sh_order + 1)**2 ) * 3; j++) {
         texdata_f[float_per_row * i + 8 + j] = f_buffer[float_per_row * i + 8 + j];
       }
     }
