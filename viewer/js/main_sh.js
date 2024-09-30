@@ -452,7 +452,7 @@ function processPlyBuffer(inputBuffer) {
       Math.exp(attrs.scale_1) *
       Math.exp(attrs.scale_2);
     const opacity = 1 / (1 + Math.exp(-attrs.opacity));
-    sizeList[row] = size * opacity;
+    sizeList[row] = size; // * opacity;
   }
   console.timeEnd("calculate importance");
 
@@ -725,7 +725,6 @@ void main () {
 
   //vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
   vColor = (pos2d.z/pos2d.w+1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
-  //vColor = vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
   vec3 dep = vec3(0.0, 0.0, 0.0);
 
   vec4 sh_coef; 
@@ -788,7 +787,7 @@ void main () {
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = diffuse + dep;
-  //vColor.rgb = vColor.rgb + dep;
+  vColor.rgb = vColor.rgb + dep;
   // vColor.rgb = clamp(sh_coef.xyz + 0.5, 0.0, 1.0);  
   // vColor.w = 1.0;
 
