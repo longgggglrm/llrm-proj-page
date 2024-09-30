@@ -687,7 +687,7 @@ void main () {
       return;
   }
 
-   uint temp = 0x3ffu;
+  // uint temp = 0x3ffu;
 
   uvec4 cov = texelFetch(u_texture, ivec2(((uint(index) & temp) * ${float_per_row/4}u + 1u), uint(index) >> 8), 0);
   vec2 u1 = unpackHalf2x16(cov.x), u2 = unpackHalf2x16(cov.y), u3 = unpackHalf2x16(cov.z);
@@ -787,7 +787,7 @@ void main () {
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = diffuse + dep;
-  vColor.rgb = vColor.rgb + dep;
+  //vColor.rgb = vColor.rgb + dep;
   // vColor.rgb = clamp(sh_coef.xyz + 0.5, 0.0, 1.0);  
   // vColor.w = 1.0;
 
