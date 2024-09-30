@@ -175,6 +175,10 @@ return [
 ];
 }
 
+function clamp(num, lower, upper) {
+  return Math.min(Math.max(num, lower), upper);
+}
+
 function createWorker(self) {
 let buffer;
 let vertexCount = 0;
@@ -197,6 +201,7 @@ let lastVertexCount = 0;
 
 var _floatView = new Float32Array(1);
 var _int32View = new Int32Array(_floatView.buffer);
+
 
 function floatToHalf(float) {
   _floatView[0] = float;
@@ -525,9 +530,9 @@ function processPlyBuffer(inputBuffer) {
 
     if (types["f_dc_0"]) {
       const SH_C0 = 0.28209479177387814;
-      rgba[0] = (0.5 + SH_C0 * attrs.f_dc_0) * 255;
-      rgba[1] = (0.5 + SH_C0 * attrs.f_dc_1) * 255;
-      rgba[2] = (0.5 + SH_C0 * attrs.f_dc_2) * 255;
+      rgba[0] = clamp(0.5 + SH_C0 * attrs.f_dc_0, 0.0, 1.0) * 255;
+      rgba[1] = clamp(0.5 + SH_C0 * attrs.f_dc_1, 0.0, 1.0) * 255;
+      rgba[2] = clamp(0.5 + SH_C0 * attrs.f_dc_2, 0.0, 1.0) * 255;
 
       // sh_feature[0] = attrs.f_dc_0;
       // sh_feature[1] = attrs.f_dc_1;
@@ -788,7 +793,7 @@ void main () {
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec4(diffuse + dep, float((cov.w >> 24) & 0xffu) / 255.0); 
   // vColor = diffuse + dep;
-  vColor.rgb = vColor.rgb + dep;
+  //vColor.rgb = vColor.rgb + dep;
   // vColor.rgb = clamp(sh_coef.xyz + 0.5, 0.0, 1.0);  
   // vColor.w = 1.0;
 
@@ -796,7 +801,7 @@ void main () {
 
 
 
-  vColor.rgb = clamp(vColor.rgb, 0.0, 1.0);  
+  //vColor.rgb = clamp(vColor.rgb, 0.0, 1.0);  
 
   vPosition = position;
 
