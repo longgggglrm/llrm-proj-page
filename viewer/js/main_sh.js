@@ -175,9 +175,6 @@ return [
 ];
 }
 
-function clamp(num, lower, upper) {
-  return Math.min(Math.max(num, lower), upper);
-}
 
 function createWorker(self) {
 let buffer;
@@ -234,6 +231,10 @@ function floatToHalf(float) {
 
 function packHalf2x16(x, y) {
   return (floatToHalf(x) | (floatToHalf(y) << 16)) >>> 0;
+}
+
+function clamp(num, lower, upper) {
+  return Math.min(Math.max(num, lower), upper);
 }
 
 function generateTexture() {
