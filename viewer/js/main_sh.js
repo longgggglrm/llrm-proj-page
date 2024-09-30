@@ -681,7 +681,7 @@ void main () {
   vec4 cam = view * vec4(uintBitsToFloat(cen.xyz), 1);
   vec4 pos2d = projection * cam;
 
-  float clip = 1.0 * pos2d.w;
+  float clip = 1.2 * pos2d.w;
   if (pos2d.z < -clip || pos2d.x < -clip || pos2d.x > clip || pos2d.y < -clip || pos2d.y > clip) {
       gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
       return;
@@ -724,7 +724,8 @@ void main () {
   // vec3 diffuse = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec3((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu) / 255.0;
 
   //vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
-  vColor = (pos2d.z/pos2d.w+1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
+  //vColor = (pos2d.z/pos2d.w+1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
+  vColor = vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
   vec3 dep = vec3(0.0, 0.0, 0.0);
 
   vec4 sh_coef; 
