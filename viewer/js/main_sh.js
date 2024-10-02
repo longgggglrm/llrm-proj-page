@@ -34,6 +34,7 @@ let cameras = [
   }
 ];
 
+
 const sh_order = 3;
 let rowLength = 3 * 4 + 3 * 4 + 4 + 4 + ((sh_order+ 1)**2-1) * 4 * 4; 
 // originally its  ((sh_order+ 1)**2-1) * 3 * 4, we pad another another 4 bytes to make it easier to access in shader 
@@ -175,7 +176,6 @@ return [
 ];
 }
 
-
 function createWorker(self) {
 let buffer;
 let vertexCount = 0;
@@ -198,7 +198,6 @@ let lastVertexCount = 0;
 
 var _floatView = new Float32Array(1);
 var _int32View = new Int32Array(_floatView.buffer);
-
 
 function floatToHalf(float) {
   _floatView[0] = float;
@@ -231,10 +230,6 @@ function floatToHalf(float) {
 
 function packHalf2x16(x, y) {
   return (floatToHalf(x) | (floatToHalf(y) << 16)) >>> 0;
-}
-
-function clamp(num, lower, upper) {
-  return Math.min(Math.max(num, lower), upper);
 }
 
 function generateTexture() {
@@ -531,9 +526,9 @@ function processPlyBuffer(inputBuffer) {
 
     if (types["f_dc_0"]) {
       const SH_C0 = 0.28209479177387814;
-      rgba[0] = clamp(0.5 + SH_C0 * attrs.f_dc_0, 0.0, 1.0) * 255;
-      rgba[1] = clamp(0.5 + SH_C0 * attrs.f_dc_1, 0.0, 1.0) * 255;
-      rgba[2] = clamp(0.5 + SH_C0 * attrs.f_dc_2, 0.0, 1.0) * 255;
+      rgba[0] = (0.5 + SH_C0 * attrs.f_dc_0) * 255;
+      rgba[1] = (0.5 + SH_C0 * attrs.f_dc_1) * 255;
+      rgba[2] = (0.5 + SH_C0 * attrs.f_dc_2) * 255;
 
       // sh_feature[0] = attrs.f_dc_0;
       // sh_feature[1] = attrs.f_dc_1;
@@ -729,9 +724,7 @@ void main () {
 
   // vec3 diffuse = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0)  * vec3((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu) / 255.0;
 
-  //vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
-  //vColor = (pos2d.z/pos2d.w+1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
-  vColor = vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
+  vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
   vec3 dep = vec3(0.0, 0.0, 0.0);
 
   vec4 sh_coef; 
@@ -907,7 +900,6 @@ let pass_in_w2c = params.get("w2c");
 try {
     pass_in_w2c = pass_in_w2c ? pass_in_w2c.split(",").map(parseFloat) : camera.worldToCam;
     console.log("pass_in_w2c", pass_in_w2c);
-    camera.worldToCam = pass_in_w2c;
 }
 catch (err) {
   console.log(err);
