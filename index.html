@@ -102,6 +102,15 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <img src="static/images/fig2.png" width="960" height="425">
+      Long-LRM takes up to 32 input images along with their Plücker ray embeddings as model input, 
+      which are then patchified, linearly transformed, and concatenated into token sequences. 
+      These tokens are processed through an optional token merging module, followed by a sequence 
+      comprising Mamba2 blocks (×7) and a Transformer block (×1). This entire processing structure is 
+      repeated three times (×3) to ensure effective handling of the long-sequence inputs and comprehensive 
+      feature extraction. After processing, the tokens are unpatchified, and Gaussian pruning is applied 
+      to generate the final 3D GS representation. The bottom section of the figure illustrates the 
+      resulting novel view synthesis and wide-coverage Gaussian reconstruction, demonstrating Long-LRM's 
+      capability to handle extensive view coverage and produce high-quality, photorealistic reconstructions.
       <video poster="" id="tree" autoplay controls muted loop height="100%">
         <!-- Your video here -->
         <source src="https://huggingface.co/longgggglrm/llrm_stuff/resolve/main/videos/dl3dv_27.mp4"
